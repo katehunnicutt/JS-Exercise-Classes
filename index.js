@@ -42,9 +42,47 @@ class Airplane {
   */
   
  class Person {
-    
+  constructor(name, age){
+    this.name = name;
+    this.age = age;
+    this.stomach = [];
   }
   
+  eat(edible){
+    if(this.stomach.length < 10){
+      this.stomach.push(edible);
+      return `${this.stomach}`
+    };
+  }
+  poop(){
+    this.stomach = [];
+    return `${this.stomach}`;
+  }
+  toString(){
+    return `${this.name}, ${this.age}`;
+  }
+}
+const mason = new Person('Mason', 10);
+
+mason.eat('treat1');
+mason.eat('treat2');
+mason.eat('treat3');
+mason.eat('treat4');
+mason.eat('treat5');
+mason.eat('treat6');
+mason.eat('treat7');
+mason.eat('treat8');
+mason.eat('treat9');
+mason.eat('treat10');
+mason.eat('milk');
+
+
+console.log(mason.stomach);
+console.log(mason.poop());
+console.log(mason.stomach);
+console.log(mason.toString());
+
+
   /*
     TASK 2
       - Write a Car class whose constructor initializes `model` and `milesPerGallon` from arguments.
@@ -59,9 +97,30 @@ class Airplane {
           + The `drive` method should return a string "I ran out of fuel at x miles!" x being `odometer`.
   */
   
+  
  class Car {
-    
+  constructor(model, milesPerGallon){
+    this.model = model;
+    this.milesPerGallon = milesPerGallon;
+    this.tank = 0
+    this.odometer = 0;
   }
+  fill(gallons){
+  return this.tank = this.tank + gallons;
+  
+  }
+  drive(distance){
+  if(this.tank > 0){
+    this.odometer = this.odometer + 1;
+    this.tank = this.tank - (1/this.milesPerGallon);
+  } else{
+    this.tank = 0
+    return `I ran out of gad at ${this.odometer} miles!`}
+  }
+}
+const mini = new Car('mini', 35)
+console.log(mini.fill(10));
+console.log(mini.drive(20));
   
   /*
     TASK 3
@@ -76,9 +135,24 @@ class Airplane {
           + {name} and {location} of course come from the instance's own properties.
   */
  class Lambdasian {
-    
+  constructor(object){
+    this.name = object.name;
+    this.age = object.age;
+    this.location = object.location;
   }
-  
+speak(){
+  return `Hello my name is ${this.name}, I am from ${this.location}.`
+}
+}
+const kait = new Lambdasian ({
+  name: 'Kait',
+  age:  23,
+  location: 'Seattle',
+
+});
+
+console.log(kait.speak());
+
   /*
     TASK 4
       - Write an Instructor class extending Lambdasian.
@@ -93,9 +167,38 @@ class Airplane {
           + `demo` receives a `subject` string as an argument and returns the phrase 'Today we are learning about {subject}' where subject is the param passed in.
           + `grade` receives a `student` object and a `subject` string as arguments and returns '{student.name} receives a perfect score on {subject}'
   */
- class Instructor {
+ class Instructor extends Lambdasian {
+  constructor(attributes) {
+    super(attributes);
+    this.specialty = attributes.specialty;
+    this.favLanguage = attributes.favLanguage;
+    this.catchPhrase = attributes.catchPhrase;
+  }
+  demo(param1) {
+    return `Today we learned about ${param1}.`
+  }
+  grade(param1, param2) {
+    return `${param1.name} receives a perfect score on ${param2}.`
+  }
+}
+const teacher = new Instructor({
+  name: 'Alex',
+  age: '33',
+  location: 'Seattle',
+  specialty: 'nothing',
+  favLanguage: 'Java script',
+  catchPhrase: 'Theres no syllabus week in the real world',
+  subject: 'css'
+});
+const student1 = new Lambdasian({
+  name: 'Emily',
+  age: '20',
+  location: 'Denver'
+});
 
- }
+console.log(teacher.demo("html"));
+console.log(teacher.grade(student1, 'html'));
+
   /*
     TASK 5
       - Write a Student class extending Lambdasian.
@@ -111,9 +214,35 @@ class Airplane {
           + `PRAssignment` a method that receives a subject as an argument and returns `student.name has submitted a PR for {subject}`
           + `sprintChallenge` similar to PRAssignment but returns `student.name has begun sprint challenge on {subject}`
   */
- class Student {
-     
- }
+ class Student extends Lambdasian {
+  constructor(attributes) {
+    super(attributes);
+    this.previousBackground = attributes.previousBackground;
+    this.className = attributes.className;
+    this.favSubjects = attributes.favSubjects;
+  }
+  listSubjects(param1) {
+    return `${param1.favSubjects}`
+  }
+  PRAssignment(param1, param2) {
+    return `${param1.name} has submitted a PR for ${param2}.`
+  }
+  sprintChallenge(param1, param2) {
+    return `${param1.name} has begun sprint challenge on ${param2}.`
+  }
+}
+const student2 = new Student({
+  name: 'Ethan',
+  age: '22',
+  location: 'Seattle',
+  previousBackground: 'finance bro',
+  className: 'CS133',
+  favSubjects: 'html'
+});
+
+console.log(student2.listSubjects(student2));
+console.log(student2.PRAssignment(student2, 'html'));
+console.log(student2.sprintChallenge(student2, 'html'));
   
   /*
     TASK 6
